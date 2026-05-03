@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+  popup.html - Consulta Lineas CRT
+  Autor: Six-Seven | MIT
+-->
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta Lineas CRT</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-logo">6-7</span>
+  <div>
+    <div class="hdr-title" data-i18n="hdr.title">Consulta Lineas CRT</div>
+    <div class="hdr-sub" data-i18n="hdr.sub">por Six-Seven</div>
+  </div>
+  <span class="hdr-badge" id="hdr-badge"></span>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-tab="t-inicio"     type="button" role="tab" data-i18n="tab.inicio">Inicio</button>
+  <button class="tab"        data-tab="t-resultados" type="button" role="tab" data-i18n="tab.resultados">Resultados</button>
+  <button class="tab"        data-tab="t-especiales" type="button" role="tab" data-i18n="tab.manuales">Manuales</button>
+  <button class="tab"        data-tab="t-acerca"     type="button" role="tab" data-i18n="tab.acerca">Acerca</button>
+</nav>
+
+<!-- ══ TAB INICIO ══ -->
+<section id="t-inicio" class="panel active">
+
+  <div id="v-form">
+    <p class="hint" data-i18n="form.hint">
+      Ingresa tus datos <strong>una sola vez</strong>. La extension abrira solo los
+      portales compatibles con tu tipo de persona y pegara los datos automaticamente.
+      Todo se guarda en tu dispositivo durante 24 horas.
+    </p>
+
+    <!-- Tipo de persona -->
+    <div class="fg">
+      <span class="fl" data-i18n="form.tipo">Tipo de persona</span>
+      <div class="rrow">
+        <button class="rb active" data-g="tipo" data-v="fisica"  aria-pressed="true"  type="button" data-i18n="form.fisica">Persona fisica</button>
+        <button class="rb"        data-g="tipo" data-v="moral"   aria-pressed="false" type="button" data-i18n="form.moral">Persona moral</button>
+      </div>
+    </div>
+
+    <!-- Ciudadania (solo visible para persona fisica) -->
+    <div class="fg" id="fg-ciudadania">
+      <span class="fl" data-i18n="form.ciudadania">Ciudadania</span>
+      <div class="rrow">
+        <button class="rb active" data-g="ciudadania" data-v="mexicano"   aria-pressed="true"  type="button" data-i18n="form.mexicano">Mexicano</button>
+        <button class="rb"        data-g="ciudadania" data-v="extranjero" aria-pressed="false" type="button" data-i18n="form.extranjero">Extranjero</button>
+      </div>
+    </div>
+
+    <!-- Campo de identificacion — cambia segun tipo/ciudadania -->
+    <div class="fg">
+      <label class="fl" for="f-id" id="f-id-label" data-i18n="form.curp.label">CURP (18 caracteres)</label>
+      <input type="text" id="f-id" class="finp"
+             placeholder="GOML920314HDFLPS08"
+             maxlength="18" autocomplete="off" spellcheck="false">
+      <div id="f-id-hint" class="field-hint" data-i18n="form.curp.hint">Para persona fisica mexicana.</div>
+      <div id="f-err" class="ferr" role="alert" aria-live="polite"></div>
+    </div>
+
+    <!-- Checkboxes -->
+    <div class="chks">
+      <label class="chlbl" for="f-tc">
+        <input type="checkbox" id="f-tc" class="chinp">
+        <span data-i18n="form.tc">Acepto los Terminos y Condiciones de cada portal consultado</span>
+      </label>
+      <label class="chlbl" for="f-av">
+        <input type="checkbox" id="f-av" class="chinp">
+        <span data-i18n="form.av">Acepto el Aviso de Privacidad de cada portal consultado</span>
+      </label>
+    </div>
+
+    <div class="pnote" data-i18n="form.pnote">
+      Tus datos nunca salen de este dispositivo. Se eliminan automaticamente a las 24 horas.
+    </div>
+
+    <button id="btn-start" class="btnp" data-i18n="form.start" type="button" disabled>Comenzar consulta</button>
+    <button id="btn-clear" class="btng" data-i18n="form.clear" type="button">Limpiar formulario</button>
+  </div>
+
+  <!-- Vista progreso -->
+  <div id="v-prog" class="hidden">
+    <div class="prog-t" id="prog-t" data-i18n="prog.title">Consultando portales</div>
+    <div class="prog-s" id="prog-s">Preparando...</div>
+    <div class="pbar-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <div class="pbar" id="pbar"></div>
+    </div>
+    <div class="pbar-lbl" id="pbar-lbl">0 / 0</div>
+    <div class="ibox">
+      Las pestanas se abren de 5 en 5.<br>
+      Resuelve el CAPTCHA en cada una y haz clic en <strong>Buscar</strong>.<br>
+      Los portales sin CAPTCHA se completan solos y cierran automaticamente.
+    </div>
+    <button id="btn-next"  class="btnp" data-i18n="prog.next" type="button">Abrir siguientes 5 pestanas</button>
+    <button id="btn-pause" class="btng" data-i18n="prog.pause" type="button">Pausar y volver</button>
+    <div id="prog-msg" class="pmsg" aria-live="polite"></div>
+  </div>
+
+  <!-- Vista reanudar -->
+  <div id="v-resume" class="hidden">
+    <div class="rsum-t" data-i18n="resume.title">Sesion anterior encontrada</div>
+    <div id="rsum-info" class="rsum-info"></div>
+    <button id="btn-resume"  class="btnp" data-i18n="resume.continue" type="button">Continuar donde me quede</button>
+    <button id="btn-restart" class="btng" data-i18n="resume.restart" type="button">Empezar desde el principio</button>
+  </div>
+
+</section>
+
+<!-- ══ TAB RESULTADOS ══ -->
+<section id="t-resultados" class="panel">
+  <div class="rtoolbar">
+    <span id="r-count" class="rcount">Sin resultados</span>
+    <button id="btn-dl" class="btn-dl" type="button" disabled data-i18n="res.dl">Descargar CSV</button>
+  </div>
+  <div id="r-ttl" class="rttl" aria-live="polite"></div>
+
+  <div class="rsec-hdr rsec-found" id="sec-found-hdr" data-i18n-prefix="res.found">Con numeros registrados <span id="sec-found-n">(0)</span></div>
+  <div id="sec-found" class="rlist"></div>
+
+  <div class="rsec-hdr rsec-ok" id="sec-ok-hdr" data-i18n-prefix="res.ok">Sin numeros registrados <span id="sec-ok-n">(0)</span></div>
+  <div id="sec-ok" class="rlist"></div>
+
+  <div class="rsec-hdr rsec-err" id="sec-err-hdr" data-i18n-prefix="res.err">Portales con error <span id="sec-err-n">(0)</span></div>
+  <div id="sec-err" class="rlist"></div>
+
+  <div id="r-empty" class="rempty" data-i18n="res.empty">Aun no hay resultados. Ve a Inicio y comienza.</div>
+  <button id="btn-clrres" class="btn-danger" type="button" data-i18n="res.clear">Borrar resultados</button>
+
+  <div class="known-errors-section">
+    <div class="known-errors-title" data-i18n="res.knownerr.title">Portales con error conocido (desde 28/04/2026)</div>
+    <div class="known-errors-notice" data-i18n="res.knownerr.notice">
+      Los siguientes portales presentan errores de acceso confirmados. Es necesario
+      consultarlos manualmente mas tarde. Six-Seven los monitorea constantemente y los
+      incluira en el proceso automatico en cuanto esten operativos.
+    </div>
+    <div id="known-errors-list" class="rlist"></div>
+  </div>
+</section>
+
+<!-- ══ TAB MANUALES ══ -->
+<section id="t-especiales" class="panel">
+  <p class="hint" data-i18n="man.hint">
+    Estos portales requieren datos adicionales que solo tu conoces (usuario, contrasena,
+    numero de telefono, correo, identificacion oficial). Haz clic en el nombre para abrir
+    el portal y consultar manualmente.
+  </p>
+  <div id="especiales-list"></div>
+</section>
+
+<!-- ══ TAB ACERCA ══ -->
+<section id="t-acerca" class="panel">
+  <div class="atable">
+    </div>
+
+  <div class="divider"></div>
+  <div class="stitle">Donaciones voluntarias</div>
+  <p class="ssub">Si esta herramienta te fue util, puedes apoyar su desarrollo.</p>
+
+  <!--
+    CONFIGURACION: Reemplaza COLOCA_AQUI con tus datos reales.
+    data-a = direccion de wallet (se copia al portapapeles)
+  -->
+  <div class="kofi-card">
+    <a href="https://ko-fi.com/sixseven8" target="_blank" rel="noopener noreferrer" class="kofi-btn">
+      ☕ Apoyar en Ko-fi / Support on Ko-fi
+    </a>
+    <div class="kofi-sub">ko-fi.com/sixseven8</div>
+  </div>
+
+  <div class="dcard">
+    <div class="dcoin-row"><span class="dcoin">XRP</span><span class="dcsub">Ripple</span></div>
+    <div class="dalbl">Direccion:</div>
+    <div class="daddr" id="addr-xrp" data-a="rLSn6Z3T8uCxbcd1oxwfGQN1Fdn5CyGujK">rLSn6Z3T8uCxbcd1oxwfGQN1Fdn5CyGujK</div>
+    <div class="dtrow"><span class="dtlbl">Destination Tag:</span><span class="dtval" id="tag-xrp">11550963</span></div>
+    <div class="dbtns">
+      <button class="bcopy" data-src="addr-xrp" type="button">Copiar direccion</button>
+      <button class="bctag" data-src="tag-xrp"  type="button">Copiar tag</button>
+    </div>
+  </div>
+
+  <div class="dcard">
+    <div class="dcoin-row"><span class="dcoin">ADA</span><span class="dcsub">Cardano</span></div>
+    <div class="dalbl">Direccion:</div>
+    <div class="daddr" id="addr-ada" data-a="addr1q9q48dvqwgfvrw6dhwhydushnd4qnfdsqxr2gxe93wkwk09sve5ted8m0wl99677rdgqrdhslk0g2l7skx2nrklpgdeqnhsyyr">addr1q9q48dvqwgfvrw6dhwhydushnd4qnfdsqxr2gxe93wkwk09sve5ted8m0wl99677rdgqrdhslk0g2l7skx2nrklpgdeqnhsyyr</div>
+    <div class="dtrow"><span class="dtlbl">Memo:</span><span class="dtval" id="tag-ada">No requerido</span></div>
+    <div class="dbtns">
+      <button class="bcopy" data-src="addr-ada" type="button">Copiar direccion</button>
+    </div>
+  </div>
+
+  <div class="dcard">
+    <div class="dcoin-row"><span class="dcoin">XLM</span><span class="dcsub">Stellar Lumens</span></div>
+    <div class="dalbl">Direccion:</div>
+    <div class="daddr" id="addr-xlm" data-a="GA22MHPWUODDYFSQMQ3I6BJAHEJCDLEPOIYG5RP47LLIO3YV3KPSIVXV">GA22MHPWUODDYFSQMQ3I6BJAHEJCDLEPOIYG5RP47LLIO3YV3KPSIVXV</div>
+    <div class="dtrow"><span class="dtlbl">Memo ID:</span><span class="dtval" id="tag-xlm">11550963</span></div>
+    <div class="dbtns">
+      <button class="bcopy" data-src="addr-xlm" type="button">Copiar direccion</button>
+      <button class="bctag" data-src="tag-xlm"  type="button">Copiar memo ID</button>
+    </div>
+  </div>
+  <div id="copy-ok" class="copyok" aria-live="polite"></div>
+
+  <div class="divider"></div>
+  <div class="stitle">Compartir</div>
+  <p class="ssub">Ayuda a otros a proteger su identidad.</p>
+  <div class="sgrid">
+    <a id="sh-wa"  class="sbtn wa"  href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    <a id="sh-tg"  class="sbtn tg"  href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
+    <a id="sh-tw"  class="sbtn tw"  href="#" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+    <a id="sh-fb"  class="sbtn fb"  href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a id="sh-em"  class="sbtn em"  href="#">Correo electronico</a>
+  </div>
+</section>
+
+
+  <!-- Selector de idioma / Language selector -->
+  <div id="lang-bar">
+    <select id="lang-sel" aria-label="Idioma / Language">
+      <option value="es">🇲🇽 Español</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="pt">🇧🇷 Português</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="hi">🇮🇳 हिंदी</option>
+      <option value="nl">🇳🇱 Nederlands</option>
+      <option value="sv">🇸🇪 Svenska</option>
+      <option value="da">🇩🇰 Dansk</option>
+      <option value="no">🇳🇴 Norsk</option>
+      <option value="pl">🇵🇱 Polski</option>
+      <option value="fi">🇫🇮 Suomi</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="ar">🇦🇪 العربية</option>
+    </select>
+  </div>
+
+<script src="i18n.js"></script>
+<script src="companies.js"></script>
+<script src="storage.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

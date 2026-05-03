@@ -1,0 +1,92 @@
+{
+  "manifest_version": 3,
+  "name": "Consulta Lineas CRT",
+  "short_name": "CRT Lineas",
+  "version": "1.0.0",
+  "description": "Verifica si hay lineas telefonicas registradas a tu nombre en los portales del CRT. Por Six-Seven.",
+  "author": "Six-Seven",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Consulta Lineas CRT",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://api-iso-prod.ientc.dev/*",
+    "https://app.weex.mx/*",
+    "https://btz.mx/*",
+    "https://consulta.logisticaacn.mx/*",
+    "https://femaseisa.com/*",
+    "https://mirlo.com/*",
+    "https://mobig.mx/*",
+    "https://mx.yomobile.com/*",
+    "https://play.prod.yomobile.xyz/*",
+    "https://rnu.altanredes.com/*",
+    "https://verificar.oxiomobile.com/*",
+    "https://vinculacion-consulta.ientc.net/*",
+    "https://vinculacion.mimovil.com.mx/*",
+    "https://vinculacion.mosi.mx/*",
+    "https://vinculacion.redphone.com.mx/*",
+    "https://virginmobile.mx/*",
+    "https://weex.mx/*",
+    "https://www.dalefon.mx/*",
+    "https://www.internetbienestarmex.com/*",
+    "https://www.soriup.mx/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://btz.mx/*",
+        "https://consulta.logisticaacn.mx/*",
+        "https://femaseisa.com/*",
+        "https://mirlo.com/*",
+        "https://mobig.mx/*",
+        "https://mx.yomobile.com/*",
+        "https://rnu.altanredes.com/*",
+        "https://verificar.oxiomobile.com/*",
+        "https://vinculacion-consulta.ientc.net/*",
+        "https://vinculacion.mimovil.com.mx/*",
+        "https://vinculacion.mosi.mx/*",
+        "https://vinculacion.redphone.com.mx/*",
+        "https://virginmobile.mx/*",
+        "https://weex.mx/*",
+        "https://www.dalefon.mx/*",
+        "https://www.internetbienestarmex.com/*",
+        "https://www.soriup.mx/*"
+      ],
+      "js": [
+        "storage.js",
+        "content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src *; object-src 'none'; frame-src 'none'"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "crt-lineas@six-seven",
+      "strict_min_version": "109.0"
+    }
+  }
+}
