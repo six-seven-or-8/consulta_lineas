@@ -233,7 +233,6 @@ estan disponibles, eliminando la necesidad de abrir pestanas y resolver CAPTCHAs
 | Permiso | Razon |
 |---|---|
 | `storage` | Guardar CURP/RFC/Pasaporte y resultados localmente con TTL de 24h |
-| `tabs` | Abrir pestanas de los portales del CRT |
 | `host_permissions` | Hacer llamadas API directas y ejecutar content scripts solo en los portales listados |
 
 No se solicitan permisos de `history`, `cookies`, `webRequest`, camara, microfono ni geolocalizacion.

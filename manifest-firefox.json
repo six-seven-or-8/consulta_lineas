@@ -26,8 +26,7 @@
     ]
   },
   "permissions": [
-    "storage",
-    "tabs"
+    "storage"
   ],
   "host_permissions": [
     "https://api-iso-prod.ientc.dev/*",
