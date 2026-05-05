@@ -84,8 +84,14 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "crt-lineas@six-seven",
-      "strict_min_version": "109.0"
+      "id": "crt-lineas-mx-2026@six-seven",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ],
+        "optional": []
+      }
     }
   }
 }
