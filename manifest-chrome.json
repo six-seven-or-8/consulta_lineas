@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Consulta Lineas CRT",
   "short_name": "CRT Lineas",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Verifica si hay lineas telefonicas registradas a tu nombre en los portales del CRT. Por Six-Seven.",
   "author": "Six-Seven",
   "icons": {
