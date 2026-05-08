@@ -34,6 +34,7 @@ const WEBVIEW_COMPANIES = [
   { id: 'mosi',         name: 'Mosi',                           type_query: 'webview', personas: 'fisica_mx_moral', url: 'https://vinculacion.mosi.mx/consulta' },
   { id: 'oxio',         name: 'Oxio',                           type_query: 'webview', personas: 'fisica_mx',       url: 'https://verificar.oxiomobile.com/consultatuslineas' },
   { id: 'bait',         name: 'Bait',                           type_query: 'webview', personas: 'fisica_mx',       url: 'https://btz.mx/consultaregistro' },
+  { id: 'vtl_freedompop', name: 'AhorroCel, Chedraui Móvil, OXXO CEL, Uber Cel (vía Freedompop)', type_query: 'webview', personas: 'fisica_mx', url: 'https://vinculatulinea.com/freedompop/my-lines' },
 ];
 
 const ACTIVE_COMPANIES = [...API_COMPANIES, ...WEBVIEW_COMPANIES];
@@ -80,21 +81,15 @@ const SPECIAL_COMPANIES = [
   { id: 'yu_movil',  name: 'Yu Movil',                url: 'https://www.yumovil.com.mx/login',
     noteKey: 'man.note.user_pass', credKey: 'man.cred.user_pass_yumovil' },
   { id: 'vtl_oui',  name: 'OUI',                     url: 'https://vinculatulinea.com/oui/my-lines',
-    noteKey: 'man.note.vtl', credKey: 'man.cred.vtl' },
+    noteKey: 'man.note.vtl' },
   { id: 'vtl_yobi', name: 'Yobi Telecom',             url: 'https://vinculatulinea.com/YobiTelecom/my-lines',
-    noteKey: 'man.note.vtl', credKey: 'man.cred.vtl' },
+    noteKey: 'man.note.vtl' },
 ];
 
 const ERROR_COMPANIES = [
   { id: 'beneleit',       name: 'Beneleit Movil',               personas: 'fisica_mx', url: 'https://beneleit.mx/consultalineas/',                      errKey: 'err.proximamente',  knownSince: '08/05/2026' },
   { id: 'nextor',         name: 'Nextor Móvil',                 personas: 'fisica_mx', url: 'https://vinculacion.nextormovil.mx/',                       errKey: 'err.nextor',                         knownSince: '08/05/2026' },
   { id: 'viralcel',       name: 'Viral Cel',                    personas: 'fisica_mx', url: 'https://www.viralcel.com/mi-linea',                         errKey: 'err.403',                            knownSince: '08/05/2026' },
-  { id: 'wiicel_ind',     name: 'Wiicel (portal propio)',       personas: 'fisica_mx', url: 'https://wiicel.com/',                                       errKey: 'err.522',        knownSince: '08/05/2026' },
-  { id: 'v_ahorrocel',    name: 'AhorroCel (VinculaTuLinea)',   personas: 'fisica_mx', url: 'https://vinculatulinea.com/freedompop/my-lines',                      errKey: 'err.403_vtl',               knownSince: '08/05/2026' },
-  { id: 'v_chedraui',     name: 'Chedraui Movil (VinculaTuLinea)', personas: 'fisica_mx', url: 'https://vinculatulinea.com/freedompop/my-lines',              errKey: 'err.403_vtl',               knownSince: '08/05/2026' },
-  { id: 'v_freedompop',   name: 'Freedompop (VinculaTuLinea)', personas: 'fisica_mx', url: 'https://vinculatulinea.com/freedompop/my-lines',                      errKey: 'err.403_vtl',               knownSince: '08/05/2026' },
-  { id: 'v_oxxocel',      name: 'OXXO CEL (VinculaTuLinea)',   personas: 'fisica_mx', url: 'https://vinculatulinea.com/freedompop/my-lines',                        errKey: 'err.403_vtl',               knownSince: '08/05/2026' },
-  { id: 'v_oui',          name: 'OUI (VinculaTuLinea)',         personas: 'fisica_mx', url: 'https://vinculatulinea.com/oui/my-lines',                    errKey: 'err.403_vtl',               knownSince: '08/05/2026' },
-  { id: 'v_ubercel',      name: 'Uber Cel (VinculaTuLinea)',    personas: 'fisica_mx', url: 'https://vinculatulinea.com/freedompop/my-lines',                        errKey: 'err.403_vtl',               knownSince: '08/05/2026' },
-  { id: 'v_yobi',         name: 'Yobi Telecom (VinculaTuLinea)', personas: 'fisica_mx', url: 'https://vinculatulinea.com/YobiTelecom/my-lines',                  errKey: 'err.403_vtl',               knownSince: '08/05/2026' },
+  { id: 'v_oui',          name: 'OUI',                          personas: 'fisica_mx', url: 'https://vinculatulinea.com/oui/my-lines',                    errKey: 'err.vtl_manual',            knownSince: '08/05/2026' },
+  { id: 'v_yobi',         name: 'Yobi Telecom',                  personas: 'fisica_mx', url: 'https://vinculatulinea.com/YobiTelecom/my-lines',                  errKey: 'err.vtl_manual',            knownSince: '08/05/2026' },
 ];

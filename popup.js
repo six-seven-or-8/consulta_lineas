@@ -550,6 +550,21 @@ async function renderResults() {
       link.href=r.url; link.target='_blank'; link.rel='noopener noreferrer';
       row.appendChild(link);
     }
+    // Desplegable de compañías incluidas (ej. Altán 67 OMVs)
+    if (r.detail) {
+      const companies = r.detail.split(', ').filter(Boolean);
+      const toggle = mkEl('button','detail-toggle', '▼ Ver ' + companies.length + ' compañías incluidas');
+      toggle.style.cssText = 'background:none;border:none;color:#3b82f6;cursor:pointer;font-size:11px;padding:2px 0;text-align:left;';
+      const detailDiv = mkEl('div','detail-list', companies.join(' · '));
+      detailDiv.style.cssText = 'display:none;font-size:10px;color:#666;margin-top:4px;line-height:1.6;';
+      toggle.addEventListener('click', function() {
+        const open = detailDiv.style.display !== 'none';
+        detailDiv.style.display = open ? 'none' : 'block';
+        toggle.textContent = open ? '▼ Ver ' + companies.length + ' compañías incluidas' : '▲ Ocultar compañías';
+      });
+      row.appendChild(toggle);
+      row.appendChild(detailDiv);
+    }
     container.appendChild(row);
   }
 
@@ -617,7 +632,7 @@ function renderAcerca() {
   if (tabla) {
     tabla.innerHTML = '';
     const rows = [
-      [t('about.version') || 'Version',   '1.0.0'],
+      [t('about.version') || 'Version',   (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) ? chrome.runtime.getManifest().version : '1.0.4'],
       [t('about.author')  || 'Autor',     'Six-Seven'],
       [t('about.license') || 'Licencia',  t('about.lic.val') || 'MIT — codigo abierto'],
       [t('about.privacy') || 'Privacidad', t('about.priv.val') || 'Sin servidores externos. Todo local. Expira en 24h.'],
@@ -674,7 +689,27 @@ function renderAcerca() {
   if (titles[0]) titles[0].textContent = t('about.donate')     || 'Donaciones voluntarias';
   if (titles[1]) titles[1].textContent = t('about.share')      || 'Compartir';
   const subs = document.querySelectorAll('.ssub');
-  if (subs[0])   subs[0].textContent   = t('about.donate.sub') || '';
+  // Frases rotativas de donación cada 8 segundos
+  const donateSub = subs[0];
+  if (donateSub) {
+    const phrases = t('donation.phrases');
+    if (Array.isArray(phrases) && phrases.length > 0) {
+      let phraseIdx = Math.floor(Math.random() * phrases.length);
+      donateSub.textContent = phrases[phraseIdx];
+      if (window._donateInterval) clearInterval(window._donateInterval);
+      window._donateInterval = setInterval(function() {
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        donateSub.style.opacity = '0';
+        setTimeout(function() {
+          donateSub.textContent = phrases[phraseIdx];
+          donateSub.style.transition = 'opacity 0.5s';
+          donateSub.style.opacity = '1';
+        }, 300);
+      }, 8000);
+    } else {
+      donateSub.textContent = t('about.donate.sub') || '';
+    }
+  }
   if (subs[1])   subs[1].textContent   = t('about.share.sub')  || '';
 
   /* Ko-fi */
