@@ -20,7 +20,7 @@ const ALTAN_HASH_FISICA = 'be0aebbc40b7f89dcde6ed49a1fdaffb199dd02f87e1de771662e
 const ALTAN_HASH_MORAL  = '6d0eb5400c2d97b658cb74bfd3f3ff370f64d107b961c41b8a79c14d6dfe6c49';
 
 /* ── Guardar resultado ─────────────────────────────────────── */
-async function saveResult(id, name, phones, status, errorMsg) {
+async function saveResult(id, name, phones, status, errorMsg, detail) {
   const r = await chrome.storage.local.get(['crt67_res']);
   const results = r['crt67_res'] || {};
   results[id] = {
@@ -30,6 +30,7 @@ async function saveResult(id, name, phones, status, errorMsg) {
     url:      '',
     status:   status   || 'ok',
     errorMsg: errorMsg || '',
+    detail:   detail   || '',
     ts:       Date.now(),
     date:     new Date().toLocaleString('es-MX'),
     via_api:  true,
@@ -128,7 +129,7 @@ async function queryAltan(user) {
 
     const data   = await resp.json();
     const phones = extractAltanPhones(data);
-    await saveResult('altan', 'Altan Redes (~67 companias)', phones, 'ok', '');
+    await saveResult('altan', 'Altan Redes (~67 companias)', phones, 'ok', '', '2y2x, Abafon, Abix, Addinteli, AI Telecomm, Appcel, BienCel, Bigcel, Bromovil, CFE Telecom, Chip Macropay, CoolMobile, Comunicaciones Green, Conect2, Diri Movil, ENI Networks, Fangio Mobile, Fibracell, FRC Mobile, Gamers, Gane, Glovo Telecom, Gmovil, Grupo Inten, Hashtag, I AM Abundance, Interlinked, Inxel, Iusatel, Kolors Mobile, Maifon, Mexico Movil, Mexfon, Mi Movil/Altan, MobileArionet, Movired, Movil para Todos, Nabi, Netmas, On-Link, OUI/Altan, Othisi Mobile, PilloFon, Playcell, Red Blak, Red Dog, Redicoppel, Retemex, RETESEC, Rincel, Secure Witness, Sfon, Spot 1, Starline, Telefonica Luna, Telgen, Telmovil, Teracel, TIC-OMV, Tuis, TurboCel, Turbored, Ultracel, Vasanta, VivaMX, Wiki Katat, Wimotelecom, Wiicel, ALLCE');
     return { ok: true };
   } catch (err) {
     return { ok: false, fallback: true, error: err.message };
