@@ -348,6 +348,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         id: msg.companyId, name: msg.companyName,
         phones: msg.phones || [], found: Array.isArray(msg.phones) && msg.phones.length > 0,
         url: msg.url || '', status: msg.status || 'ok', errorMsg: msg.errorMsg || '',
+        detail: msg.detail || '',
         ts: Date.now(), date: new Date().toLocaleString('es-MX'),
       };
       chrome.storage.local.set({ 'crt67_res': res });

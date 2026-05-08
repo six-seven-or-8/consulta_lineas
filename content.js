@@ -197,7 +197,7 @@ function handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract
   }
 }
 
-async function watchResults(id, name, autoClose, querySubmitted, strictExtract, noPhoneExtract) {
+async function watchResults(id, name, autoClose, querySubmitted, strictExtract, noPhoneExtract, detail) {
   if (querySubmitted) await querySubmitted;
   await sleep(500);
   let done = false;
@@ -207,7 +207,7 @@ async function watchResults(id, name, autoClose, querySubmitted, strictExtract, 
     if (result) {
       done=true; obs.disconnect();
       await sleep(400);
-      handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract);
+      handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract, detail, strictExtract, noPhoneExtract);
     }
   });
   obs.observe(document.body, { childList:true, subtree:true, characterData:true });
@@ -285,7 +285,7 @@ async function fillAltan(user) {
     });
     obs.observe(document.body, { childList:true, subtree:true });
     setTimeout(() => { submitResolve(); obs.disconnect(); }, 120000);
-    watchResults('altan','Altan Redes (~67 companias)', false, submitted);
+    watchResults('altan','Altan Redes (~67 companias)', false, submitted, false, false, '2y2x, Abafon, Abix, Addinteli, AI Telecomm, Appcel, BienCel, Bigcel, Bromovil, CFE Telecom, Chip Macropay, CoolMobile, Comunicaciones Green, Conect2, Diri Movil, ENI Networks, Fangio Mobile, Fibracell, FRC Mobile, Gamers, Gane, Glovo Telecom, Gmovil, Grupo Inten, Hashtag, I AM Abundance, Interlinked, Inxel, Iusatel, Kolors Mobile, Maifon, Mexico Movil, Mexfon, Mi Movil/Altan, MobileArionet, Movired, Movil para Todos, Nabi, Netmas, On-Link, OUI/Altan, Othisi Mobile, PilloFon, Playcell, Red Blak, Red Dog, Redicoppel, Retemex, RETESEC, Rincel, Secure Witness, Sfon, Spot 1, Starline, Telefonica Luna, Telgen, Telmovil, Teracel, TIC-OMV, Tuis, TurboCel, Turbored, Ultracel, Vasanta, VivaMX, Wiki Katat, Wimotelecom, Wiicel, ALLCE');
   } catch(err) {
     banner('No se pudo prellenar. Ingresa los datos manualmente.', '#B91C1C');
   }
