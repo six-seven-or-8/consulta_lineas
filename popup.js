@@ -635,10 +635,10 @@ function renderAcerca() {
       if (val === null) {
         /* Fila Codigo — agregar link */
         const a = document.createElement('a');
-        a.href = 'https://github.com/six-seven/crt-lineas';
+        a.href = 'https://github.com/six-seven-or-8/consulta_lineas';
         a.target = '_blank'; a.rel = 'noopener noreferrer';
         a.className = 'alink';
-        a.textContent = 'github.com/six-seven/crt-lineas';
+        a.textContent = 'github.com/six-seven-or-8/consulta_lineas';
         av.appendChild(a);
       } else {
         av.textContent = val;
@@ -728,7 +728,11 @@ function initCopy() {
 
 /* ── Compartir ───────────────────────────────────────────── */
 function initShare() {
-  const EXT = 'https://github.com/six-seven/crt-lineas';
+  // URL correcta según plataforma
+  const isFF = typeof browser !== 'undefined';
+  const EXT = isFF
+    ? 'https://addons.mozilla.org/en-US/firefox/addon/consulta-lineas-crt/'
+    : 'https://chromewebstore.google.com/detail/consulta-lineas-crt/gabgalohhhdicheppchpkdclcfoaieop';
   const RAW = 'Descubre si alguien registro lineas telefonicas a tu nombre sin permiso. ' +
     'Extension gratuita que revisa todos los portales del CRT en Mexico. ' +
     'Protege tu identidad: ' + EXT;
@@ -739,7 +743,6 @@ function initShare() {
     'sh-tg': 'https://t.me/share/url?url='+URL_+'&text='+encodeURIComponent(RAW),
     'sh-tw': 'https://twitter.com/intent/tweet?text='+MSG,
     'sh-fb': 'https://www.facebook.com/sharer/sharer.php?u='+URL_,
-    'sh-em': 'mailto:?subject='+encodeURIComponent('Verifica lineas a tu nombre')+'&body='+MSG,
   };
   Object.entries(map).forEach(([id,href]) => {
     const a=g(id); if(!a) return; a.href=href;
