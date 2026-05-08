@@ -3,7 +3,7 @@
   "name": "LineShield",
   "short_name": "CRT Lineas",
   "version": "1.0.4",
-  "description": "Verifica si hay líneas telefónicas registradas a tu nombre en los portales del CRT México. Más de 80 portales consultados automáticamente.",
+  "description": "Verifica líneas telefónicas a tu nombre en los portales del CRT México. Más de 80 portales automáticamente.",
   "author": "Six-Seven",
   "icons": {
     "16": "icons/icon16.png",
