@@ -82,14 +82,14 @@ const SPECIAL_COMPANIES = [
     noteKey: 'man.note.user_pass', credKey: 'man.cred.user_pass_yumovil' },
   { id: 'vtl_oui',  name: 'OUI',                     url: 'https://vinculatulinea.com/oui/my-lines',
     noteKey: 'man.note.vtl' },
-  { id: 'vtl_yobi', name: 'Yobi Telecom',             url: 'https://vinculatulinea.com/YobiTelecom/my-lines',
+  { id: 'vtl_yobi',  name: 'Yobi Telecom',             url: 'https://vinculatulinea.com/YobiTelecom/my-lines',
     noteKey: 'man.note.vtl' },
+  { id: 'nextor',    name: 'Nextor Móvil',             url: 'https://vinculacion.nextormovil.mx/',
+    noteKey: 'man.note.nextor' },
+  { id: 'viralcel',  name: 'Viralcel',                 url: 'https://www.viralcel.com/mi-linea',
+    noteKey: 'man.note.viralcel' },
 ];
 
 const ERROR_COMPANIES = [
   { id: 'beneleit',       name: 'Beneleit Movil',               personas: 'fisica_mx', url: 'https://beneleit.mx/consultalineas/',                      errKey: 'err.proximamente',  knownSince: '08/05/2026' },
-  { id: 'nextor',         name: 'Nextor Móvil',                 personas: 'fisica_mx', url: 'https://vinculacion.nextormovil.mx/',                       errKey: 'err.nextor',                         knownSince: '08/05/2026' },
-  { id: 'viralcel',       name: 'Viral Cel',                    personas: 'fisica_mx', url: 'https://www.viralcel.com/mi-linea',                         errKey: 'err.403',                            knownSince: '08/05/2026' },
-  { id: 'v_oui',          name: 'OUI',                          personas: 'fisica_mx', url: 'https://vinculatulinea.com/oui/my-lines',                    errKey: 'err.vtl_manual',            knownSince: '08/05/2026' },
-  { id: 'v_yobi',         name: 'Yobi Telecom',                  personas: 'fisica_mx', url: 'https://vinculatulinea.com/YobiTelecom/my-lines',                  errKey: 'err.vtl_manual',            knownSince: '08/05/2026' },
 ];
