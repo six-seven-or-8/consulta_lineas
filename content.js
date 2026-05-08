@@ -88,11 +88,12 @@ function banner(msg, color) {
 }
 
 /* ── Guardar resultado ───────────────────────────────────── */
-function saveResult(id, name, phones, status, errorMsg, autoClose) {
+function saveResult(id, name, phones, status, errorMsg, autoClose, detail) {
   const msg = {
     type:'QUERY_RESULT', companyId:id, companyName:name,
     phones:phones||[], url:location.href,
     status:status||'ok', errorMsg:errorMsg||'',
+    detail: detail||'',
   };
   try { chrome.runtime.sendMessage(msg); }
   catch (e) {
@@ -178,13 +179,10 @@ function extractPhonesStrict() {
   return [...new Set(raw.map(p => p.replace(/[\s\-]/g,'')).filter(p => p.length===10))];
 }
 
-function handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract) {
+function handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract, detail) {
   if (result==='positive') {
-    /* noPhoneExtract: portales donde los numeros no se pueden capturar
-       de forma confiable (ej. Mirlo que tiene tel de contacto en el DOM).
-       El usuario ve el resultado directamente en la pestana del portal. */
     const phones = noPhoneExtract ? [] : (strictExtract ? extractPhonesStrict() : extractPhones());
-    saveResult(id, name, phones, 'ok', '', autoClose);
+    saveResult(id, name, phones, 'ok', '', autoClose, detail||'');
     banner(
       phones.length>0
         ? 'Se encontraron '+phones.length+' linea(s). Guardado.'+(autoClose?' Esta pestana se cerrara.':'')
@@ -192,7 +190,7 @@ function handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract
       phones.length>0 ? '#15803D' : '#1E3A8A'
     );
   } else {
-    saveResult(id, name, [], 'ok', '', autoClose);
+    saveResult(id, name, [], 'ok', '', autoClose, detail||'');
     banner('Sin lineas registradas. Guardado.'+(autoClose?' Esta pestana se cerrara.':''), '#1E3A8A');
   }
 }
@@ -207,12 +205,12 @@ async function watchResults(id, name, autoClose, querySubmitted, strictExtract, 
     if (result) {
       done=true; obs.disconnect();
       await sleep(400);
-      handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract, detail, strictExtract, noPhoneExtract);
+      handleResult(id, name, result, autoClose, strictExtract, noPhoneExtract, detail);
     }
   });
   obs.observe(document.body, { childList:true, subtree:true, characterData:true });
   setTimeout(() => {
-    if (!done) { obs.disconnect(); const r=checkPage(); if(r) handleResult(id,name,r,autoClose,strictExtract,noPhoneExtract); }
+    if (!done) { obs.disconnect(); const r=checkPage(); if(r) handleResult(id,name,r,autoClose,strictExtract,noPhoneExtract,detail); }
   }, 90000);
 }
 
