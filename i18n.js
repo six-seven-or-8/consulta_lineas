@@ -15,7 +15,7 @@ const I18N = {
 
 /* ══ ES ══════════════════════════════════════════════════ */
 es: {
-  'hdr.title':'Consulta Lineas CRT','hdr.sub':'por Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'por Six-Seven',
   'tab.inicio':'Inicio','tab.resultados':'Resultados','tab.manuales':'Manuales','tab.acerca':'Acerca',
   'form.hint':'Ingresa tus datos una sola vez. La extension abrira solo los portales compatibles con tu tipo de persona y pegara los datos automaticamente. Todo se guarda en tu dispositivo durante 24 horas.',
   'form.tipo':'Tipo de persona','form.fisica':'Persona fisica','form.moral':'Persona moral',
@@ -71,13 +71,15 @@ es: {
   'err.403': 'Error 403. El portal bloquea el acceso externo.',
   'err.522': 'Error 522 de Cloudflare. El servidor del portal está caído.',
   'err.403_vtl': 'Error 403. VinculaTuLinea bloquea el acceso directo a esta ruta.',
+  'err.nextor': 'Este portal es solo de registro con INE, no de consulta. Regístrate para verificar si tienes líneas.',
+  'err.viralcel': 'Viralcel no cuenta con portal de consulta de líneas. Visita su sitio para registrarte.',
   'err.timeout': 'Timeout de conexión. El portal no responde.',
     'donate.address':'Direccion:','donate.tag':'Destination Tag:','donate.memo':'Memo:','donate.memoid':'Memo ID:','donate.notrequired':'No requerido',
 },
 
 /* ══ EN ══════════════════════════════════════════════════ */
 en: {
-  'hdr.title':'CRT Lines Check','hdr.sub':'by Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'by Six-Seven',
   'tab.inicio':'Home','tab.resultados':'Results','tab.manuales':'Manual','tab.acerca':'About',
   'form.hint':'Enter your data once. The extension will open only compatible portals and fill in your data automatically. Everything is saved on your device for 24 hours.',
   'form.tipo':'Person type','form.fisica':'Individual','form.moral':'Company',
@@ -133,13 +135,15 @@ en: {
   'err.403': 'Error 403. Portal blocks external access.',
   'err.522': 'Cloudflare Error 522. Portal server is down.',
   'err.403_vtl': 'Error 403. VinculaTuLinea blocks direct access to this path.',
+  'err.nextor': 'This portal is registration-only (requires INE). Register to verify lines.',
+   'err.viralcel': 'Viralcel has no line query portal. Visit their site to register.',
   'err.timeout': 'Connection timeout. Portal is not responding.',
     'donate.address':'Address:','donate.tag':'Destination Tag:','donate.memo':'Memo:','donate.memoid':'Memo ID:','donate.notrequired':'Not required',
 },
 
 /* ══ FR ══════════════════════════════════════════════════ */
 fr: {
-  'hdr.title':'Vérif. Lignes CRT','hdr.sub':'par Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'par Six-Seven',
   'tab.inicio':'Accueil','tab.resultados':'Résultats','tab.manuales':'Manuel','tab.acerca':'À propos',
   'form.hint':'Saisissez vos données une seule fois. L\'extension ouvrira uniquement les portails compatibles et remplira vos données automatiquement.',
   'form.tipo':'Type de personne','form.fisica':'Particulier','form.moral':'Entreprise',
@@ -199,7 +203,7 @@ fr: {
 
 /* ══ DE ══════════════════════════════════════════════════ */
 de: {
-  'hdr.title':'CRT-Leitungsabfrage','hdr.sub':'von Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'von Six-Seven',
   'tab.inicio':'Start','tab.resultados':'Ergebnisse','tab.manuales':'Manuell','tab.acerca':'Über',
   'form.hint':'Daten einmal eingeben. Die Erweiterung öffnet nur kompatible Portale und füllt Ihre Daten automatisch aus.',
   'form.tipo':'Personentyp','form.fisica':'Privatperson','form.moral':'Unternehmen',
@@ -259,7 +263,7 @@ de: {
 
 /* ══ PT ══════════════════════════════════════════════════ */
 pt: {
-  'hdr.title':'Consulta Linhas CRT','hdr.sub':'por Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'por Six-Seven',
   'tab.inicio':'Início','tab.resultados':'Resultados','tab.manuales':'Manual','tab.acerca':'Sobre',
   'form.hint':'Insira seus dados uma vez. A extensão abrirá apenas portais compatíveis e preencherá seus dados automaticamente.',
   'form.tipo':'Tipo de pessoa','form.fisica':'Pessoa física','form.moral':'Empresa',
@@ -319,7 +323,7 @@ pt: {
 
 /* ══ IT ══════════════════════════════════════════════════ */
 it: {
-  'hdr.title':'Verifica Linee CRT','hdr.sub':'di Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'di Six-Seven',
   'tab.inicio':'Inizio','tab.resultados':'Risultati','tab.manuales':'Manuale','tab.acerca':'Info',
   'form.hint':'Inserisci i dati una sola volta. L\'estensione aprirà solo i portali compatibili e compilerà i dati automaticamente.',
   'form.tipo':'Tipo di persona','form.fisica':'Persona fisica','form.moral':'Azienda',
@@ -379,7 +383,7 @@ it: {
 
 /* ══ JA ══════════════════════════════════════════════════ */
 ja: {
-  'hdr.title':'CRT回線確認','hdr.sub':'Six-Seven製',
+  'hdr.title':'LineShield','hdr.sub':'Six-Seven製',
   'tab.inicio':'ホーム','tab.resultados':'結果','tab.manuales':'手動','tab.acerca':'情報',
   'form.hint':'データを一度入力するだけで、拡張機能が対応するすべてのポータルを自動的に確認します。24時間保存されます。',
   'form.tipo':'人物タイプ','form.fisica':'個人','form.moral':'法人',
@@ -439,7 +443,7 @@ ja: {
 
 /* ══ KO ══════════════════════════════════════════════════ */
 ko: {
-  'hdr.title':'CRT 회선 조회','hdr.sub':'Six-Seven 제작',
+  'hdr.title':'LineShield','hdr.sub':'Six-Seven 제작',
   'tab.inicio':'홈','tab.resultados':'결과','tab.manuales':'수동','tab.acerca':'정보',
   'form.hint':'데이터를 한 번 입력하면 확장 프로그램이 호환 가능한 포털을 자동으로 확인합니다. 24시간 동안 저장됩니다.',
   'form.tipo':'인물 유형','form.fisica':'개인','form.moral':'법인',
@@ -499,7 +503,7 @@ ko: {
 
 /* ══ ZH ══════════════════════════════════════════════════ */
 zh: {
-  'hdr.title':'CRT线路查询','hdr.sub':'由Six-Seven制作',
+  'hdr.title':'LineShield','hdr.sub':'由Six-Seven制作',
   'tab.inicio':'主页','tab.resultados':'结果','tab.manuales':'手动','tab.acerca':'关于',
   'form.hint':'只需输入一次数据，扩展程序将自动检查所有兼容门户。数据在设备上保存24小时。',
   'form.tipo':'人员类型','form.fisica':'个人','form.moral':'企业',
@@ -559,7 +563,7 @@ zh: {
 
 /* ══ HI ══════════════════════════════════════════════════ */
 hi: {
-  'hdr.title':'CRT लाइन जाँच','hdr.sub':'Six-Seven द्वारा',
+  'hdr.title':'LineShield','hdr.sub':'Six-Seven द्वारा',
   'tab.inicio':'होम','tab.resultados':'परिणाम','tab.manuales':'मैनुअल','tab.acerca':'के बारे में',
   'form.hint':'एक बार डेटा दर्ज करें। एक्सटेंशन स्वचालित रूप से सभी संगत पोर्टल जाँचेगा। 24 घंटे के लिए सहेजा जाता है।',
   'form.tipo':'व्यक्ति का प्रकार','form.fisica':'व्यक्तिगत','form.moral':'कंपनी',
@@ -619,7 +623,7 @@ hi: {
 
 /* ══ NL ══════════════════════════════════════════════════ */
 nl: {
-  'hdr.title':'CRT Lijncontrole','hdr.sub':'door Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'door Six-Seven',
   'tab.inicio':'Start','tab.resultados':'Resultaten','tab.manuales':'Handmatig','tab.acerca':'Over',
   'form.hint':'Voer uw gegevens één keer in. De extensie controleert automatisch alle compatibele portals en vult uw gegevens in.',
   'form.tipo':'Type persoon','form.fisica':'Particulier','form.moral':'Bedrijf',
@@ -679,7 +683,7 @@ nl: {
 
 /* ══ SV ══════════════════════════════════════════════════ */
 sv: {
-  'hdr.title':'CRT Linjekontroll','hdr.sub':'av Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'av Six-Seven',
   'tab.inicio':'Hem','tab.resultados':'Resultat','tab.manuales':'Manuellt','tab.acerca':'Om',
   'form.hint':'Ange dina uppgifter en gång. Tillägget öppnar bara kompatibla portaler och fyller i uppgifterna automatiskt.',
   'form.tipo':'Persontyp','form.fisica':'Privatperson','form.moral':'Företag',
@@ -739,7 +743,7 @@ sv: {
 
 /* ══ DA ══════════════════════════════════════════════════ */
 da: {
-  'hdr.title':'CRT Linjekontrol','hdr.sub':'af Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'af Six-Seven',
   'tab.inicio':'Hjem','tab.resultados':'Resultater','tab.manuales':'Manuel','tab.acerca':'Om',
   'form.hint':'Angiv dine data én gang. Udvidelsen åbner kun kompatible portaler og udfylder dine data automatisk.',
   'form.tipo':'Persontype','form.fisica':'Privatperson','form.moral':'Virksomhed',
@@ -799,7 +803,7 @@ da: {
 
 /* ══ NO ══════════════════════════════════════════════════ */
 no: {
-  'hdr.title':'CRT Linjekontroll','hdr.sub':'av Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'av Six-Seven',
   'tab.inicio':'Hjem','tab.resultados':'Resultater','tab.manuales':'Manuell','tab.acerca':'Om',
   'form.hint':'Angi dataene dine én gang. Utvidelsen åpner bare kompatible portaler og fyller inn dataene automatisk.',
   'form.tipo':'Persontype','form.fisica':'Privatperson','form.moral':'Bedrift',
@@ -859,7 +863,7 @@ no: {
 
 /* ══ PL ══════════════════════════════════════════════════ */
 pl: {
-  'hdr.title':'Sprawdzanie Linii CRT','hdr.sub':'przez Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'przez Six-Seven',
   'tab.inicio':'Start','tab.resultados':'Wyniki','tab.manuales':'Ręczne','tab.acerca':'O nas',
   'form.hint':'Wprowadź dane raz. Rozszerzenie automatycznie sprawdzi wszystkie kompatybilne portale i wypełni Twoje dane.',
   'form.tipo':'Typ osoby','form.fisica':'Osoba fizyczna','form.moral':'Firma',
@@ -919,7 +923,7 @@ pl: {
 
 /* ══ FI ══════════════════════════════════════════════════ */
 fi: {
-  'hdr.title':'CRT-linjatarkistus','hdr.sub':'tekijä Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'tekijä Six-Seven',
   'tab.inicio':'Koti','tab.resultados':'Tulokset','tab.manuales':'Manuaalinen','tab.acerca':'Tietoja',
   'form.hint':'Syötä tietosi kerran. Laajennus tarkistaa automaattisesti kaikki yhteensopivat portaalit ja täyttää tietosi.',
   'form.tipo':'Henkilötyyppi','form.fisica':'Yksityishenkilö','form.moral':'Yritys',
@@ -979,7 +983,7 @@ fi: {
 
 /* ══ RU ══════════════════════════════════════════════════ */
 ru: {
-  'hdr.title':'Проверка линий CRT','hdr.sub':'от Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'от Six-Seven',
   'tab.inicio':'Главная','tab.resultados':'Результаты','tab.manuales':'Вручную','tab.acerca':'О нас',
   'form.hint':'Введите данные один раз. Расширение автоматически проверит все совместимые порталы и заполнит ваши данные. Данные сохраняются на 24 часа.',
   'form.tipo':'Тип лица','form.fisica':'Физическое лицо','form.moral':'Юридическое лицо',
@@ -1040,7 +1044,7 @@ ru: {
 
 /* ══ TR ══════════════════════════════════════════════════ */
 tr: {
-  'hdr.title':'CRT Hat Kontrolü','hdr.sub':'Six-Seven tarafından',
+  'hdr.title':'LineShield','hdr.sub':'Six-Seven tarafından',
   'tab.inicio':'Ana Sayfa','tab.resultados':'Sonuçlar','tab.manuales':'Manuel','tab.acerca':'Hakkında',
   'form.hint':'Verilerinizi bir kez girin. Uzantı, uyumlu portalları otomatik olarak kontrol eder ve verilerinizi doldurur.',
   'form.tipo':'Kişi türü','form.fisica':'Bireysel','form.moral':'Şirket',
@@ -1100,7 +1104,7 @@ tr: {
 
 /* ══ AR ══════════════════════════════════════════════════ */
 ar: {
-  'hdr.title':'فحص خطوط CRT','hdr.sub':'بواسطة Six-Seven',
+  'hdr.title':'LineShield','hdr.sub':'بواسطة Six-Seven',
   'tab.inicio':'الرئيسية','tab.resultados':'النتائج','tab.manuales':'يدوي','tab.acerca':'حول',
   'form.hint':'أدخل بياناتك مرة واحدة. سيقوم الامتداد تلقائياً بالتحقق من جميع البوابات المتوافقة وملء بياناتك. يُحفظ لمدة 24 ساعة.',
   'form.tipo':'نوع الشخص','form.fisica':'شخص طبيعي','form.moral':'شركة',

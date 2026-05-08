@@ -159,7 +159,8 @@ async function queryWeex(user) {
 /* ── MoBig ─────────────────────────────────────────────────── */
 async function queryMobig(id, name, baseUrl, user) {
   try {
-    const resp = await fetch(baseUrl + 'api/vinculacion/search-by-curp', {
+    const endpoint = baseUrl.includes('femaseisa') ? baseUrl + 'api/vinculacion/search-by-curp' : baseUrl + 'consulta-curp';
+    const resp = await fetch(endpoint, {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ curp: user.identificador.toUpperCase() }),
     });
@@ -238,6 +239,80 @@ async function querySorcel(user) {
   } catch (err) { return { ok: false, error: err.message }; }
 }
 
+
+/* ── Megamóvil ─────────────────────────────────────────────── */
+async function queryMegamovil(user) {
+  try {
+    const id = encodeURIComponent(user.identificador.toUpperCase());
+    const resp = await fetch('https://consultavinculacion.megamovil.mx/validaCURP?curp=' + id, {
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const lines = data?.lines || data?.data || data?.subscriptions || [];
+    const phones = (Array.isArray(lines) ? lines : [])
+      .map(l => typeof l === 'string' ? l : (l.msisdn || l.numero || l.phone || ''))
+      .map(s => s.replace(/\D/g, '')).filter(s => s.length === 10);
+    await saveResult('megamovil', 'Megamóvil', phones, 'ok', '');
+    return { ok: true };
+  } catch (err) { return { ok: false, error: err.message }; }
+}
+
+/* ── core.newww.mx (Link Móvil / Newww / Red Águila) ────────── */
+async function queryCoreNewww(id, name, brand, user) {
+  try {
+    const curp = encodeURIComponent(user.identificador.toUpperCase());
+    const resp = await fetch(
+      'https://core.newww.mx/api/core/consulta_lineas_vinculacion?curp=' + curp + '&brand=' + brand,
+      { headers: { 'Accept': 'application/json' } }
+    );
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const lines = data?.lines || data?.data || [];
+    const phones = (Array.isArray(lines) ? lines : [])
+      .map(l => typeof l === 'string' ? l : (l.msisdn || l.numero || l.phone || ''))
+      .map(s => s.replace(/\D/g, '')).filter(s => s.length === 10);
+    await saveResult(id, name, phones, 'ok', '');
+    return { ok: true };
+  } catch (err) { return { ok: false, error: err.message }; }
+}
+
+/* ── Logística ACN (Dua / Fedego! / Flash Mobile) ────────────── */
+async function queryLogistica(user) {
+  try {
+    const id = encodeURIComponent(user.identificador.toUpperCase());
+    const resp = await fetch('https://ku.diri.mx/consultaRNU/' + id, {
+      headers: { 'Accept': 'application/json', 'Origin': 'https://consulta.logisticaacn.mx' }
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const arr = await resp.json();
+    const phones = (Array.isArray(arr) ? arr : [])
+      .map(item => typeof item === 'string' ? item : (item.msisdn || item.numero || ''))
+      .map(s => s.replace(/\D/g, '')).filter(s => s.length === 10);
+    await saveResult('logistica', 'Dua / Fedego! / Flash Mobile', phones, 'ok', '');
+    return { ok: true };
+  } catch (err) { return { ok: false, error: err.message }; }
+}
+
+/* ── Mirlo ─────────────────────────────────────────────────── */
+async function queryMirlo(user) {
+  try {
+    const idType = user.tipoPersona === 'moral' ? 'by-rfc' : 'by-curp';
+    const resp = await fetch(
+      'https://apib.mirlo.com/api/v1/regulation/query/' + idType + '/' + user.identificador.toUpperCase(),
+      { headers: { 'Accept': 'application/json' } }
+    );
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const lines = data?.lines || data?.subscriptions || data?.data || [];
+    const phones = (Array.isArray(lines) ? lines : [])
+      .map(l => typeof l === 'string' ? l : (l.msisdn || l.numero || l.phone || ''))
+      .map(s => s.replace(/\D/g, '')).filter(s => s.length === 10);
+    await saveResult('mirlo', 'Mirlo', phones, 'ok', '');
+    return { ok: true };
+  } catch (err) { return { ok: false, error: err.message }; }
+}
+
 /* ── Dispatcher ────────────────────────────────────────────── */
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === 'RUN_API_QUERIES') {
@@ -247,11 +322,17 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         switch (co.id) {
           case 'altan':      return await queryAltan(user);
           case 'weex':       return await queryWeex(user);
-          case 'mobig':      return await queryMobig('mobig',      'MoBig',                    'https://mobig.mx/',      user);
+          case 'mobig':      return await queryMobig('mobig',      'MoBig',                    'https://mobig.mx/vinculatulinea/',      user);
           case 'mobig_bien': return await queryMobig('mobig_bien', 'MoBig Internet Bienestar', 'https://femaseisa.com/', user);
           case 'yo_mobile':  return await queryYoMobile(user);
           case 'ientc':      return await queryIentc(user);
           case 'sorcel':     return await querySorcel(user);
+          case 'megamovil':   return await queryMegamovil(user);
+          case 'logistica':   return await queryLogistica(user);
+          case 'mirlo':       return await queryMirlo(user);
+          case 'link_movil':  return await queryCoreNewww('link_movil',  'Link Móvil',  'lm', user);
+          case 'newww':       return await queryCoreNewww('newww',       'Newww',       'nw', user);
+          case 'red_aguila':  return await queryCoreNewww('red_aguila',  'Red Águila',  'ra', user);
           default:           return { ok: false, error: 'unknown: ' + co.id };
         }
       } catch (e) { return { ok: false, error: e.message }; }
